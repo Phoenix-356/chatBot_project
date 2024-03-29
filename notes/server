@@ -1,0 +1,36 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+const path = require('path');
+
+const app = express();
+
+// Парсинг JSON
+app.use(bodyParser.json());
+
+//Подключение стилей
+
+app.use(express.static('public'));
+
+// GET запрос на корневой URL
+app.get('/', (req, res) => {
+    // Отправляем файл index.html
+    res.sendFile('public/index.html');
+});
+
+// POST запрос на /login
+app.post('/login', (req, res) => {
+    // Получаем данные из тела запроса
+    const { email, password } = req.body;
+
+    // Вместо этого места можно добавить логику проверки авторизации пользователя
+    // Например, можно сравнить полученные данные с данными в базе данных
+
+    // Отправляем ответ в формате JSON
+    res.json({ success: true, message: 'Авторизация прошла успешно', email });
+});
+
+// Запуск сервера на порту 3000
+const port = 3000;
+app.listen(port, () => {
+    console.log(`Сервер запущен на порту ${port}`);
+});
